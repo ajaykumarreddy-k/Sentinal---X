@@ -1,0 +1,76 @@
+@import "tailwindcss"; /* This is the only line you need for the base setup */
+
+/* Your custom Oracle/Sentinel-X theme logic below */
+@theme {
+  /* Base Colors */
+  --color-oracle-green: #00ff41;
+  --color-charcoal: #0d1117;
+  --color-obsidian: #02040a;
+  --color-warning-amber: #ff9500;
+  
+  /* Neon Colors */
+  --color-neon-cyan: #00F0FF;
+  --color-neon-red: #FF003C;
+  --color-neon-yellow: #FAFF00;
+  
+  /* Typography */
+  --font-logistics: "JetBrains Mono", "Fira Code", monospace;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Fira Code", monospace;
+}
+
+/* Shadow Neon Effect */
+.shadow-neon {
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.4), 0 0 40px rgba(0, 255, 65, 0.2);
+}
+
+/* Scanline Effect */
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+  animation: scanline 2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+/* Custom Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 240, 255, 0.2);
+  border-radius: 20px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 240, 255, 0.5);
+}
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

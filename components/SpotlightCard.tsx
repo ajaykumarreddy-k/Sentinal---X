@@ -1,9 +1,9 @@
-import React, { useRef, MouseEvent, useEffect } from 'react';
+import { useRef, MouseEvent, useEffect } from 'react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
-interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SpotlightCardProps extends Omit<HTMLMotionProps<'div'>, 'onMouseMove' | 'onMouseEnter' | 'onMouseLeave'> {
   children: React.ReactNode;
   className?: string;
   spotlightColor?: string;
@@ -13,11 +13,11 @@ export function cn(...inputs: (string | undefined | null | false)[]) {
   return twMerge(clsx(inputs));
 }
 
-export const SpotlightCard: React.FC<SpotlightCardProps> = ({ 
-  children, 
-  className, 
+export const SpotlightCard: React.FC<SpotlightCardProps> = ({
+  children,
+  className,
   spotlightColor = 'rgba(0, 240, 255, 0.15)', // Updated to Electric Cyan (#00F0FF)
-  ...props 
+  ...props
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
     // Base radius 600px, fluctuating +/- 50px, speed factor 0.003
     const time = performance.now();
     const radius = 600 + Math.sin(time * 0.003) * 50;
-    
+
     const { x, y } = mouseRef.current;
 
     // Apply the gradient
@@ -52,7 +52,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!divRef.current) return;
-    
+
     // Calculate relative coordinates only on move to save resources
     const rect = divRef.current.getBoundingClientRect();
     mouseRef.current = {
@@ -64,18 +64,18 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   const handleMouseEnter = () => {
     isHovered.current = true;
     if (overlayRef.current) {
-        overlayRef.current.style.opacity = '1';
+      overlayRef.current.style.opacity = '1';
     }
     // Start the animation loop if not already running
     if (!rafId.current) {
-        rafId.current = requestAnimationFrame(animate);
+      rafId.current = requestAnimationFrame(animate);
     }
   };
 
   const handleMouseLeave = () => {
     isHovered.current = false;
     if (overlayRef.current) {
-        overlayRef.current.style.opacity = '0';
+      overlayRef.current.style.opacity = '0';
     }
     // Stop the loop
     if (rafId.current) {
