@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Sentinel-X",
+  "description": "A Multimodal Supply Chain Intelligence Platform with a Cyberpunk-dark aesthetic.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
